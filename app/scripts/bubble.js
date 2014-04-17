@@ -1,4 +1,3 @@
-//Options
 var width = 480,
     height = 480,
     dotRadius = 10,
@@ -11,23 +10,6 @@ var svg = d3.select("#bubble").append("svg")
 //Scales for item positions
 var x = d3.scale.linear().domain([0,10]).range([0,width]);
 var y = d3.scale.linear().domain([0,10]).range([height,0]);
- 
-//gridlines
-/*svg.append("path")
-  .attr("class","grid")
-  .attr("d",function() {
-    var d = "";
- 
-    for (var i = gridSpacing; i < width; i += gridSpacing ) {
-      d += "M"+i+",0 L"+i+","+height;
-    }
- 
-    for (var i = gridSpacing; i < height; i += gridSpacing ) {
-      d += "M0,"+i+" L"+width+","+i;
-    }
- 
-    return d;
-  })*/
  
 //x axis
 svg.append("path")
@@ -42,15 +24,17 @@ svg.append("path")
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
 //radius correlates to frequency
+//need date or some kind of order for the slider to be able to filter data
 
 
 
 var itemList = [
   {
-    x: 5,
-    y: 1,
-    r: 20,
-    description: "Passive, neutral"
+    x: 5, //mood from 1-10, 1 being negative, 10 being positive
+    y: 1, //activity from 1-10, 1 being passive, 10 being active
+    r: 20, //frequency of word mentioned
+    date: 2014-2-4, //date of entry
+    description: "Passive, neutral" //string e.g. angry, calm, happy
   },
   {
     x: 8,
@@ -77,7 +61,7 @@ var itemList = [
 var items = svg.selectAll("g.item").data(itemList).enter().append("g")
   .attr("class","item");
  
-//Add a dot
+//dots
 items.append("circle")
   .attr("r", function(d){
   	return d.r;
@@ -89,8 +73,7 @@ items.append("circle")
     return y(d.y);
   });
  
-//Add a label
-//would need to use .getBBox() to make sure this doesn't hit the sides
+//labels
 items.append("text")
   .attr("x",function(d){
     return x(d.x);
@@ -101,3 +84,5 @@ items.append("text")
   .attr("dy","1.25em")
   .attr("text-anchor","middle")
   .text(function(d){return d.description;});
+
+$("#slider2").dateRangeSlider();
