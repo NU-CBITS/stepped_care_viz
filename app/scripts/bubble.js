@@ -1,4 +1,4 @@
-var width = 480,
+/*var width = 480,
     height = 480,
     dotRadius = 10,
     gridSpacing = 10;
@@ -85,4 +85,4 @@ items.append("text")
   .attr("text-anchor","middle")
   .text(function(d){return d.description;});
 
-$("#slider2").dateRangeSlider();
+$("#slider2").dateRangeSlider();*/

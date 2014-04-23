@@ -115,49 +115,20 @@ path {
     stroke: #000;
 }
 
+
 #slider {
-    width: 225%;
+    width: 100%;
     margin-left: 25%;
     margin-top: -15%;
     margin-bottom: 15%;
 }
 
-label.left {
-    float: left;
-    margin-top: 2em;
-    margin-right: -2em;
-}
-label.right {
-    float: right;
-    padding-top: 2em;
-}
-
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
- 
-.grid {
-  stroke-width: 0.5px;
-  stroke: steelblue;
-  fill: none;
-  opacity: 0.5;
-}
- 
-.axis {
-  stroke-width: 3px;
-  stroke: black;
-  fill: none;
-}
  
 g.item circle {
   fill: black;
   stroke: none;
 }
- 
-svg {
-  border: 1px solid #ccc;
-}
- 
+
 text {
   font: 12px sans-serif;
 }

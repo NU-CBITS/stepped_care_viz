@@ -1,27 +1,77 @@
-/*var m = [80, 80, 80, 80]; // margins
+var m = [80, 80, 80, 80]; // margins
 var w = 1000 - m[1] - m[3]; // width
 var h = 400 - m[0] - m[2]; // height
 
-var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5];
-var startTime = new Date(1394773200000);
-var endTime = new Date(1395637200000);
-var timeStep = 8.64e+7;
+var data = [
+  {
+    x: 5, //mood from 1-10, 1 being negative, 10 being positive
+    y: 1, //activity from 1-10, 1 being passive, 10 being active
+    r: 20, //frequency of word mentioned
+    date: "March 13, 2014", //date of entry
+    description: "Passive, neutral" //string e.g. angry, calm, happy
+  },
+  {
+    x: 8,
+    y: 5,
+    r: 10,
+    date: "March 14, 2014",
+    description: "neutral, positive"
+  },
+  {
+    x: 3,
+    y: 7,
+    r: 7,
+    date: "March 15, 2014",
+    description: "active, negative"
+  },
+  {
+    x: 9,
+    y: 2,
+    r: 2,
+    date: "March 16, 2014",
+    description: "passive, positive"
+  },
+  {
+    x: 3,
+    y: 2,
+    r: 2,
+    date: "March 17, 2014",
+    description: "passive, positive"
+  },
+  {
+    x: 6,
+    y: 2,
+    r: 2,
+    date: "March 18, 2014",
+    description: "passive, positive"
+  },
+  {
+    x: 10,
+    y: 2,
+    r: 2,
+    date: "March 19, 2014",
+    description: "passive, positive"
+  }];
 
-var x = d3.time.scale().domain([startTime, endTime]).range([0, w]);
+function getDate(d) {
+    return new Date(d.date);
+}
+
+var minDate = getDate(data[0]),
+    maxDate = getDate(data[data.length-1]);
+var x = d3.time.scale()
+    .domain([minDate, maxDate]).range([0, w]);
 x.tickFormat(d3.time.format("%m-%d"));
 var y = d3.scale.linear().domain([0, 10]).range([h, 0]);
 
-// automatically determining max range can work something like this
-// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
 
 var line = d3.svg.line()
- .x(function(d,i) {
-	return x(startTime.getTime() + (timeStep*i)); 
+ .x(function(d) {
+	return x(new Date(d.date)); 
  })
  .y(function(d) {
-   return y(d);
+   return y(d.x);
  });
-
 
 
 // Add an SVG element with the desired dimensions and margin.
@@ -58,28 +108,26 @@ var clip = graph.append("defs").append("svg:clipPath")
 .attr("width", w)
 .attr("height", h);
 
-  
-  // Add the line by appending an svg:path element with the data line we created above
-  // do this AFTER the axes above so that the line is above the tick-lines
+
 var path = graph.append("svg:path").attr("class","path").attr("clip-path", "url(#clip)").attr("d", line(data));
 
-$(function() {
-	$("#slider").slider({
-		range: true,
-		min: 1394773200000,
-		max: 1395637200000,
-		values: [startTime,endTime],
-		slide: function( event, ui ) {
-		var maxv = d3.min([ui.values[1], endTime]);
-		var minv = d3.max([ui.values[0], ui.values[0]]);
-
-		x.domain([minv, maxv-1]);
-		graph.transition().duration(750)
-		  .select(".x.axis").call(xAxis);
-		graph.transition().duration(750)
-		  .select(".path").attr("d", line(data));
-	}});
+$("#slider").dateRangeSlider({
+    defaultValues:{
+      min: minDate,
+      max: getDate(data[data.length-2])
+    },
+    bounds:{
+      min: minDate,
+      max: maxDate
+    }
 });
 
-$("#slider").prepend("<label class='left'>March 14</label>").append("<label class='right'>March 23</label>");
-*/
+$("#slider").bind("valuesChanging", function(e, data){
+ console.log("Something moved. min: " + data.values.min + " max: " + data.values.max);
+  x.domain([data.values.min, data.values.max]);
+  graph.transition().duration(750)
+    .select(".x.axis").call(xAxis);
+  graph.transition().duration(500)
+    .select(".path").attr("d", function(d) {return line(d);}); //can't get the line to redraw to scale
+});
+
