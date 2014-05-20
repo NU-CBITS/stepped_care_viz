@@ -127,7 +127,6 @@ $("#slider").bind("valuesChanging", function(e, data){
   x.domain([data.values.min, data.values.max]);
   graph.transition().duration(750)
     .select(".x.axis").call(xAxis);
-  graph.transition().duration(500)
-    .select(".path").attr("d", function(d) {return line(d);}); //can't get the line to redraw to scale
+    path.selectAll(".path").attr("d", line(data)); //can't get the line to redraw to scale
 });
 

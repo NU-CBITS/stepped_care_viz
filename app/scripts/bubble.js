@@ -1,4 +1,4 @@
-/*var width = 480,
+var width = 480,
     height = 480,
     dotRadius = 10,
     gridSpacing = 10;
@@ -21,6 +21,8 @@ svg.append("path")
   .attr("class","axis")
   .attr("d","M"+width/2+",0 L"+width/2+","+height);
 
+
+var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green"]);
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
 //radius correlates to frequency
@@ -53,6 +55,18 @@ var itemList = [
     y: 2,
     r: 2,
     description: "passive, positive"
+  },
+  {
+    x: 9,
+    y: 6,
+    r: 2,
+    description: "passive, positive"
+  },
+  {
+    x: 9,
+    y: 3,
+    r: 3,
+    description: "passive, neutral"
   }];
 
 
@@ -71,6 +85,9 @@ items.append("circle")
   })
   .attr("cy",function(d){
     return y(d.y);
+  })
+  .style("fill", function(d) {
+    return colorScale(d.description);
   });
  
 //labels
@@ -85,4 +102,4 @@ items.append("text")
   .attr("text-anchor","middle")
   .text(function(d){return d.description;});
 
-$("#slider2").dateRangeSlider();*/
+$("#slider2").dateRangeSlider();
