@@ -2,57 +2,6 @@ var m = [80, 80, 80, 80]; // margins
 var w = 1000 - m[1] - m[3]; // width
 var h = 400 - m[0] - m[2]; // height
 
-/*var feelings = [
-  {
-    x: 5, //mood from 1-10, 1 being negative, 10 being positive
-    y: 1, //activity from 1-10, 1 being passive, 10 being active
-    r: 20, //frequency of word mentioned
-    date: "March 13, 2014", //date of entry
-    description: "Passive, neutral" //string e.g. angry, calm, happy
-  },
-  {
-    x: 8,
-    y: 5,
-    r: 10,
-    date: "March 14, 2014",
-    description: "neutral, positive"
-  },
-  {
-    x: 3,
-    y: 7,
-    r: 7,
-    date: "March 15, 2014",
-    description: "active, negative"
-  },
-  {
-    x: 9,
-    y: 2,
-    r: 2,
-    date: "March 16, 2014",
-    description: "passive, positive"
-  },
-  {
-    x: 3,
-    y: 2,
-    r: 2,
-    date: "March 17, 2014",
-    description: "passive, positive"
-  },
-  {
-    x: 6,
-    y: 2,
-    r: 2,
-    date: "March 18, 2014",
-    description: "passive, positive"
-  },
-  {
-    x: 10,
-    y: 2,
-    r: 2,
-    date: "March 19, 2014",
-    description: "passive, positive"
-  }];*/
-
 function getDate(d) {
     return new Date(d.date);
 }

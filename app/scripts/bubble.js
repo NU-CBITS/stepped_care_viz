@@ -83,12 +83,13 @@ var itemList = [
   }];
 
 
- 
+
 //One group per item
+
 var items = svg.selectAll("g.item").data(itemList).enter().append("g")
   .attr("class","item");
-function drawBubbles() {
 
+function drawBubbles() {
   //dots
   items.append("circle")
     .attr("r", function(d){
@@ -104,8 +105,9 @@ function drawBubbles() {
       return colorScale(d.description);
     })
     .style("stroke-width", "2px")
-    .style("stroke", "black");
-   
+    .style("stroke", "black")
+    .style("opacity",".75");
+    
   //labels
   items.append("text")
     .attr("x",function(d){

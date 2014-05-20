@@ -15,8 +15,9 @@ $("#slider").bind("valuesChanging", function(e, itemList){
     .select(".x.axis").call(xAxis);
   drawLine();
   items.filter(function(d) {
-  	console.log(itemList.values.min);
+  	console.log('debug');
     return new Date(d.date) > (itemList.values.min);
-    drawBubbles();
   	});
+  drawBubbles();
 });
+

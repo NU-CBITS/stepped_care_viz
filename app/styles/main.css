@@ -123,10 +123,8 @@ path {
     margin-bottom: 15%;
 }
 
- 
-g.item circle {
-  fill: black;
-  stroke: none;
+circle:hover {
+    opacity: 1;
 }
 
 text {
