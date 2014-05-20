@@ -36,38 +36,50 @@ var itemList = [
     x: 5, //mood from 1-10, 1 being negative, 10 being positive
     y: 1, //activity from 1-10, 1 being passive, 10 being active
     r: 20, //frequency of word mentioned
-    date: 2014-2-4, //date of entry
-    description: "Passive, neutral" //string e.g. angry, calm, happy
+    date: "March 13, 2014", //date of entry
+    description: "neutral, positive" //string e.g. angry, calm, happy
   },
   {
     x: 8,
     y: 5,
     r: 10,
+    date: "March 14, 2014",
     description: "neutral, positive"
   },
   {
     x: 3,
     y: 7,
     r: 7,
+    date: "March 15, 2014",
     description: "active, negative"
   },
   {
     x: 9,
     y: 2,
     r: 2,
-    description: "passive, positive"
+    date: "March 16, 2014",
+    description: "active, positive"
   },
   {
-    x: 9,
-    y: 6,
-    r: 2,
-    description: "passive, positive"
-  },
-  {
-    x: 9,
-    y: 3,
+    x: 3,
+    y: 2,
     r: 3,
-    description: "passive, neutral"
+    date: "March 17, 2014",
+    description: "passive, positive"
+  },
+  {
+    x: 6,
+    y: 2,
+    r: 8,
+    date: "March 18, 2014",
+    description: "passive, positive"
+  },
+  {
+    x: 7,
+    y: 8,
+    r: 5,
+    date: "March 19, 2014",
+    description: "neutral, negative"
   }];
 
 
@@ -75,32 +87,35 @@ var itemList = [
 //One group per item
 var items = svg.selectAll("g.item").data(itemList).enter().append("g")
   .attr("class","item");
- 
-//dots
-items.append("circle")
-  .attr("r", function(d){
-  	return d.r;
-  })
-  .attr("cx",function(d){
-    return x(d.x);
-  })
-  .attr("cy",function(d){
-    return y(d.y);
-  })
-  .style("fill", function(d) {
-    return colorScale(d.description);
-  });
- 
-//labels
-items.append("text")
-  .attr("x",function(d){
-    return x(d.x);
-  })
-  .attr("y",function(d){
-    return y(d.y);
-  })
-  .attr("dy","1.25em")
-  .attr("text-anchor","middle")
-  .text(function(d){return d.description;});
+function drawBubbles() {
 
-$("#slider2").dateRangeSlider();
+  //dots
+  items.append("circle")
+    .attr("r", function(d){
+    	return d.r;
+    })
+    .attr("cx",function(d){
+      return x(d.x);
+    })
+    .attr("cy",function(d){
+      return y(d.y);
+    })
+    .style("fill", function(d) {
+      return colorScale(d.description);
+    })
+    .style("stroke-width", "2px")
+    .style("stroke", "black");
+   
+  //labels
+  items.append("text")
+    .attr("x",function(d){
+      return x(d.x);
+    })
+    .attr("y",function(d){
+      return y(d.y);
+    })
+    .attr("dy","1.25em")
+    .attr("text-anchor","middle")
+    .text(function(d){return d.description;});
+};
+drawBubbles();
