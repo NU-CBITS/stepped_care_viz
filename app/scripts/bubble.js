@@ -21,8 +21,9 @@ svg.append("path")
   .attr("class","axis")
   .attr("d","M"+width/2+",0 L"+width/2+","+height);
 
-
+//Color scale attributes each color to the first points in the Item List.
 var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green"]);
+
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
 //radius correlates to frequency
