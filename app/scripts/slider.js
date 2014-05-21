@@ -35,7 +35,5 @@ function dateRangeFilter() {
 //redraw bubble
 $("#slider").bind("valuesChanged", function() {
     dateRangeFilter();
-    items.data(filteredItems);
-    console.log(filteredItems);
-    drawBubbles();
+    drawBubbles(filteredItems);
 });

@@ -88,6 +88,9 @@ var items = svg.selectAll("g.item").data(itemList).enter().append("g")
 //One group per item
 
 function drawBubbles(bubbleItems) {
+  svg.selectAll("g.item").remove();
+  var items = svg.selectAll("g.item").data(bubbleItems).enter().append("g")
+  .attr("class","item");;
   //dots
   items.append("circle")
     .attr("r", function(d){
