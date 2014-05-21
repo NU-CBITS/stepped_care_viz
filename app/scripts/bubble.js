@@ -8,8 +8,8 @@ var svg = d3.select("#bubble").append("svg")
     .attr("height",height);
  
 //Scales for item positions
-var x = d3.scale.linear().domain([0,10]).range([0,width]);
-var y = d3.scale.linear().domain([0,10]).range([height,0]);
+var xBubble = d3.scale.linear().domain([0,10]).range([0,width]);
+var yBubble = d3.scale.linear().domain([0,10]).range([height,0]);
  
 //x axis
 svg.append("path")
@@ -22,7 +22,7 @@ svg.append("path")
   .attr("d","M"+width/2+",0 L"+width/2+","+height);
 
 //Color scale attributes each color to the first points in the Item List.
-var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green"]);
+var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green", "teal"]);
 
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
@@ -83,23 +83,21 @@ var itemList = [
   }];
 
 
-
+var items = svg.selectAll("g.item").data(itemList).enter().append("g")
+  .attr("class","item");;
 //One group per item
 
-var items = svg.selectAll("g.item").data(itemList).enter().append("g")
-  .attr("class","item");
-
-function drawBubbles() {
+function drawBubbles(bubbleItems) {
   //dots
   items.append("circle")
     .attr("r", function(d){
     	return d.r;
     })
     .attr("cx",function(d){
-      return x(d.x);
+      return xBubble(d.x);
     })
     .attr("cy",function(d){
-      return y(d.y);
+      return yBubble(d.y);
     })
     .style("fill", function(d) {
       return colorScale(d.description);
@@ -111,13 +109,14 @@ function drawBubbles() {
   //labels
   items.append("text")
     .attr("x",function(d){
-      return x(d.x);
+      return xBubble(d.x);
     })
     .attr("y",function(d){
-      return y(d.y);
+      return yBubble(d.y);
     })
     .attr("dy","1.25em")
     .attr("text-anchor","middle")
     .text(function(d){return d.description;});
 };
-drawBubbles();
+
+drawBubbles(itemList);
