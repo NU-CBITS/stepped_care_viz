@@ -89,7 +89,7 @@ body {
 }
 
 path {
-    stroke: steelblue;
+    stroke: #0080FF;
     stroke-width: 1;
     fill: none;
 }

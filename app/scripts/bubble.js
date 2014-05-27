@@ -21,30 +21,14 @@ svg.append("path")
   .attr("d","M"+width/2+",0 L"+width/2+","+height);
 
 //Color scale attributes each color to the first points in the Item List.
+//Eventually should change these to gradient against axes.
 var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green", "teal"]);
 
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
 //radius correlates to frequency
 //need date or some kind of order for the slider to be able to filter data
-
-
-
 var itemList = [
-  {
-    x:5,
-    y:5,
-    r:0,
-    date: "March 12, 2014",
-    description: "neutral, positive"
-  },
-  {
-    x:5,
-    y:5,
-    r:0,
-    date: "March 12, 2014",
-    description: "active, positive"
-  },
   {
     x: 5, //mood from 1-10, 1 being negative, 10 being positive
     y: 1, //activity from 1-10, 1 being passive, 10 being active
@@ -95,17 +79,16 @@ var itemList = [
     description: "neutral, negative"
   }];
 
-
+//create items from data
 var items = svg.selectAll("g.item").data(itemList).enter().append("g")
   .attr("class","item");;
-//One group per item
 
 function drawBubbles(bubbleItems) {
-  svg.selectAll("g.item")/*.style("opacity",1).transition().duration(500).style("opacity",0)*/.remove();
-  
-  var items = svg.selectAll("g").data(bubbleItems);
+  //remove previous bubbles
+  svg.selectAll("g.item").remove();
 
-  //items.exit().transition().attr("r",0).style("opacity",0).duration(500).remove();
+  //(re)initialize bubbles
+  var items = svg.selectAll("g").data(bubbleItems);
 
   items.enter().append("g")
   .attr("class","item");
@@ -141,4 +124,5 @@ function drawBubbles(bubbleItems) {
     .text(function(d){return d.description;});
 };
 
+//initial bubbles with original data array
 drawBubbles(itemList);
