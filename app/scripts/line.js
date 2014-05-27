@@ -1,5 +1,5 @@
-var m = [80, 80, 80, 80]; // margins
-var w = 1000 - m[1] - m[3]; // width
+var m = [50, 50, 50, 50]; // margins
+var w = 400 - m[1] - m[3]; // width
 var h = 400 - m[0] - m[2]; // height
 
 function getDate(d) {
@@ -26,6 +26,7 @@ var line = d3.svg.line()
 var graph = d3.select("#chart").append("svg:svg")
   .attr("width", w + m[1] + m[3])
   .attr("height", h + m[0] + m[2])
+  .attr("preserveAspectRatio","xMinYMin")
   .append("svg:g")
   .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 

@@ -123,6 +123,23 @@ path {
     margin-bottom: 15%;
 }
 
+#bubble svg {
+    margin: 5px;
+    display: inline-block;
+}
+
+#bubble {
+    display: inline-block;
+}
+
+#chart {
+    display: inline-block;
+}
+
+#slider {
+    margin: 0;
+}
+
 circle:hover {
     opacity: 1;
 }

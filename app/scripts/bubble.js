@@ -1,6 +1,5 @@
-var width = 480,
-    height = 480,
-    dotRadius = 10,
+var width = 300,
+    height = 300,
     gridSpacing = 10;
  
 var svg = d3.select("#bubble").append("svg")
@@ -32,6 +31,20 @@ var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green", "te
 
 
 var itemList = [
+  {
+    x:5,
+    y:5,
+    r:0,
+    date: "March 12, 2014",
+    description: "neutral, positive"
+  },
+  {
+    x:5,
+    y:5,
+    r:0,
+    date: "March 12, 2014",
+    description: "active, positive"
+  },
   {
     x: 5, //mood from 1-10, 1 being negative, 10 being positive
     y: 1, //activity from 1-10, 1 being passive, 10 being active
@@ -88,9 +101,14 @@ var items = svg.selectAll("g.item").data(itemList).enter().append("g")
 //One group per item
 
 function drawBubbles(bubbleItems) {
-  svg.selectAll("g.item").remove();
-  var items = svg.selectAll("g.item").data(bubbleItems).enter().append("g")
-  .attr("class","item");;
+  svg.selectAll("g.item")/*.style("opacity",1).transition().duration(500).style("opacity",0)*/.remove();
+  
+  var items = svg.selectAll("g").data(bubbleItems);
+
+  //items.exit().transition().attr("r",0).style("opacity",0).duration(500).remove();
+
+  items.enter().append("g")
+  .attr("class","item");
   //dots
   items.append("circle")
     .attr("r", function(d){
@@ -110,6 +128,7 @@ function drawBubbles(bubbleItems) {
     .style("opacity",".75");
     
   //labels
+
   items.append("text")
     .attr("x",function(d){
       return xBubble(d.x);
