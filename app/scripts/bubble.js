@@ -13,8 +13,20 @@ var yBubble = d3.scale.linear().domain([0,10]).range([height,0]);
 //x axis
 svg.append("path")
   .attr("class","axis")
-  .attr("d","M0,"+height/2+" L"+width+","+height/2);
- 
+  .attr("d","M0,"+height/2+" L"+width+","+height/2)
+  .append("text")
+
+svg.append("text")
+  .attr("x",275)
+  .attr("y",175)
+  .style("text-anchor","middle")
+  .text("Positive");
+
+svg.append("text")
+  .attr("x",25)
+  .attr("y",175)
+  .style("text-anchor","middle")
+  .text("Negative");
 //y axis
 svg.append("path")
   .attr("class","axis")
@@ -22,7 +34,10 @@ svg.append("path")
 
 //Color scale attributes each color to the first points in the Item List.
 //Eventually should change these to gradient against axes.
-var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green", "teal"]);
+//var colorScale = d3.scale.ordinal().range(["red", "yellow", "blue", "green", "teal"]);
+var colorScale = d3.scale.linear()
+  .domain([0,5,10])
+  .range(["red", "yellow", "green"]);
 
 //x coordinate correlates to positive/negative feeling. 
 //y coordinate correlates to passive/active
@@ -37,7 +52,7 @@ var itemList = [
     description: "neutral, positive" //string e.g. angry, calm, happy
   },
   {
-    x: 8,
+    x: 1,
     y: 5,
     r: 10,
     date: "March 14, 2014",
@@ -104,7 +119,7 @@ function drawBubbles(bubbleItems) {
       return yBubble(d.y);
     })
     .style("fill", function(d) {
-      return colorScale(d.description);
+      return colorScale(d.x);
     })
     .style("stroke-width", "2px")
     .style("stroke", "black")
@@ -112,7 +127,7 @@ function drawBubbles(bubbleItems) {
     
   //labels
 
-  items.append("text")
+/*  items.append("text")
     .attr("x",function(d){
       return xBubble(d.x);
     })
@@ -121,7 +136,7 @@ function drawBubbles(bubbleItems) {
     })
     .attr("dy","1.25em")
     .attr("text-anchor","middle")
-    .text(function(d){return d.description;});
+    .text(function(d){return d.description;});*/
 };
 
 //initial bubbles with original data array
